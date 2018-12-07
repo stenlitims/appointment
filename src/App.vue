@@ -119,7 +119,7 @@
       </div>
 
       <div class="step4" v-if="step == 4">
-        <h3>{{langs[lang]['Спасибо']}}</h3>
+        <h3 v-html="langs[lang]['Спасибо']"></h3>
       </div>
 
       <div class="alert alert-danger" v-if="formError">{{langs[lang]['error']}}</div>
