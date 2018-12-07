@@ -108,7 +108,7 @@
             </label>
           </div>
           <div class="form-group">
-            <label>E-mail *</label>
+            <label>E-mail</label>
             <input type="email" v-model="form.email" class="form-control">
           </div>
           <div class="form-group">
@@ -119,12 +119,12 @@
       </div>
 
       <div class="step4" v-if="step == 4">
-        <h3>Спасибо! <br> Мы с вами свяжемся</h3>
+        <h3>{{langs[lang]['Спасибо']}}</h3>
       </div>
 
       <div class="alert alert-danger" v-if="formError">{{langs[lang]['error']}}</div>
 
-      <div class="btns"  v-if="step < 4">
+      <div class="btns" v-if="step < 4">
         <button class="btn" @click="step = step - 1" v-if="step > 1">Назад</button>
         <button
           class="btn"
@@ -155,6 +155,7 @@ let langs = {
     "Выберете-день": "Выберите, пожалуйста, удобный для вас день",
     "Выберете-время": "Выберите, пожалуйста, удобное для вас время в",
     утро: "Утро",
+    Спасибо: "Спасибо!<br>Мы с вами свяжемся",
     обед: "Обед",
     вечер: "Вечер",
     далее: "Далее",
@@ -174,6 +175,7 @@ let langs = {
     "Выберете-день": "Оберіть, будь ласка, зручний для вас день",
     "Выберете-время": "Оберіть, будь ласка, зручний для вас час у",
     утро: "Ранок",
+    Спасибо: "Дякуємо! <br> Ми з вами зв'яжемося",
     обед: "Обід",
     вечер: "Вечір",
     далее: "Далі",
@@ -379,13 +381,13 @@ export default {
     formValid() {
       let check = true;
       for (let item in this.form) {
-        if (item != "text" && item != "callback") {
+        if (item != "text" && item != "callback" && item != "email") {
           if (!this.form[item]) {
             check = false;
           }
         }
       }
-      if (!this.isAddress(this.form.email)) {
+      if (!this.isAddress(this.form.email) && this.form.email) {
         check = false;
       }
       return check;
@@ -453,8 +455,8 @@ export default {
         return;
       }
 
-   //   this.step = 4;
-//      return;
+      //   this.step = 4;
+      //      return;
 
       $(".calendar-wrap form").addClass("loader");
       $.post(
@@ -476,10 +478,9 @@ export default {
 </script>
 
 <style lang="scss">
-
-.loader{
+.loader {
   position: relative;
-  &:after{
+  &:after {
     content: "" !important;
     position: absolute;
     top: 0;
@@ -487,16 +488,16 @@ export default {
     right: 0;
     left: 0;
     z-index: 100;
-    background: rgba(255,255,255,.3);
+    background: rgba(255, 255, 255, 0.3);
     display: block !important;
   }
 }
-.step4{
+.step4 {
   min-height: 300px;
   display: flex;
   align-items: center;
   justify-content: center;
-  h3{
+  h3 {
     text-align: center;
     line-height: 1.3;
   }
