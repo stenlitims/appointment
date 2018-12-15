@@ -7,7 +7,7 @@
         <div class="item" :class="{'active': step >= 3}"></div>
         <div class="item" :class="{'active': step == 4}"></div>
       </div>
-      <h4>{{langs[lang]['Запись']}} ЖК GreenSide</h4>
+      <h4>{{langs[lang]['Запись']}} ЖК City Park</h4>
       <div class="step1" v-if="step == 1">
         <p>{{langs[lang]['Просмотр-время']}}:</p>
         <table class="appointments-timetable">
@@ -100,11 +100,18 @@
             </div>
           </div>
 
-          <div style="margin-bottom: 30px">
+          <div style="margin-bottom: 20px">
             <label class="cus-check">
               <input v-model="form.callback" type="checkbox">
               <span class="ch"></span>
               <span class="title">{{langs[lang]['Напомните']}}</span>
+            </label>
+          </div>
+          <div style="margin-bottom: 30px">
+            <label class="cus-check">
+              <input v-model="form.transfer" type="checkbox">
+              <span class="ch"></span>
+              <span class="title">{{langs[lang]['transfer']}}</span>
             </label>
           </div>
           <div class="form-group">
@@ -165,6 +172,7 @@ let langs = {
     "Ваше имя": "Ваше имя и фамилия",
     комментарий: "Дополнительный комментарий",
     записаться: "Записаться",
+    transfer: "Нужен трасфер от м. Академ городок",
     Напомните: "Напомните звонком за день до встречи",
     "вы-выбрали": "Вы выбрали",
     error: "Заполните все поля со звездочкой!"
@@ -185,6 +193,7 @@ let langs = {
     "Ваше имя": "Ваше ім'я та прізвище",
     комментарий: "Додатковий коментар",
     записаться: "Записатися",
+    transfer: "Потрібен трансфер від м. Академмістечко",
     Напомните: "Нагадайте дзвінком за день до зустрічі",
     "вы-выбрали": "Ви обрали",
     error: "Заповніть всі поля із зірочкою!"
@@ -340,6 +349,7 @@ export default {
         name: null,
         text: null,
         callback: false,
+        transfer: false,
         type: "record"
       },
       formError: false
@@ -458,14 +468,14 @@ export default {
       //   this.step = 4;
       //      return;
 
-      $(".calendar-wrap form").addClass("loader");
+      $(".calendar-wrap").addClass("loader");
       $.post(
-        "https://greenside.com.ua/assets/plugins/requests.php",
+        "/assets/plugins/requests.php",
         this.form,
         response => {
           console.log(response);
           if (response.type == "success") {
-            $(".calendar-wrap form").removeClass("loader");
+            $(".calendar-wrap").removeClass("loader");
             this.step = 4;
             ga("send", "event", "record_form", "push");
           }
@@ -710,5 +720,31 @@ export default {
     transition: all 0.3s ease;
     position: relative;
   }
+}
+
+@media only screen and (max-width: 600px) {
+  .styles-conditional-class .functional-calendar .calendar-for {
+    max-width: 400px !important;
+    min-width: 400px !important;
+  }
+  .styles-conditional-class .functional-calendar {
+    min-width: 400px !important;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .styles-conditional-class .functional-calendar .calendar-for {
+    max-width: 100% !important;
+    min-width: 100% !important;
+  }
+  .styles-conditional-class .functional-calendar {
+    min-width: 100% !important;
+  }
+  .calendar-wrap {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}
+@media only screen and (max-width: 400px) {
 }
 </style>
