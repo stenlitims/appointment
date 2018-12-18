@@ -7,7 +7,7 @@
         <div class="item" :class="{'active': step >= 3}"></div>
         <div class="item" :class="{'active': step == 4}"></div>
       </div>
-      <h4>{{langs[lang]['Запись']}} ЖК City Park</h4>
+      <h4>{{langs[lang]['Запись']}} ЖК GreenSide</h4>
       <div class="step1" v-if="step == 1">
         <p>{{langs[lang]['Просмотр-время']}}:</p>
         <table class="appointments-timetable">
@@ -391,7 +391,7 @@ export default {
     formValid() {
       let check = true;
       for (let item in this.form) {
-        if (item != "text" && item != "callback" && item != "email") {
+        if (item != "text" && item != "callback" && item != "email" && item != "transfer") {
           if (!this.form[item]) {
             check = false;
           }
